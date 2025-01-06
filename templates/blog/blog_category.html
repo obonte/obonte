@@ -1,0 +1,51 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block title %}
+Make Search
+{% endblock title %}
+
+{% block content %}
+
+    <section class="mt-2 pt-1" id="search">
+        <h5 class="display-5 text-center">{{title.title |title}} Category </h5>
+        <div class="container">
+            <div class="row">
+                {% if categorys %}
+                {% for source in categorys %}
+                    <div class="col-md-8 mx-auto">
+                        <div class="row">
+                            <div class="col-2 col-md-2">
+                                <a href="{% url 'blog_view' source.id %}" class="link-dark">
+                                    <img class="img-fluid" height="100" width="2" src="{{source.leadimg.url}}" alt="{{source.title }}">
+                                </a>
+                            </div>
+                            <div class="col-10 col-md-10">
+                                <div class="emptydiv"></div>
+                                <a class="link-dark fw-bold fst-italic" href="{% url 'blog_view' source.id %}">{{source.title |title}}</a>
+                                <p> 
+                                    {{source.body | truncatewords:12 |safe}}
+                                </p>
+                                <p class="itinerary text-danger"><i class="bi bi-share-fil"></i> 
+                                    {{source.date_posted}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                <div class="mx-auto ps-4 pt-2">
+                    <p class="lead bg-danger text-white fst-italic py-2 ps-3">
+                        No Post Related To This Search - Be Specific With Your Search
+                    </p>
+                </div>
+                {% endif %}
+                
+            </div>
+        </div>
+    </section>
+
+
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% endblock content %}

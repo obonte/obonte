@@ -1,0 +1,30 @@
+    <!-- Search Colum -->
+    <section id="intro">
+        <div class="container text-white">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="text-center">
+                    <h3 class="display-3">Welcome To Obonte's Blog</h3>
+                    <h6 class=""> News | Entertainment | Events | Fashion | Inspiration | Lifestyle <h6>
+                </div>
+              </div>  
+            </div>            
+        </div>
+    </section>
+
+    <!-- form -->
+    <section id="form">
+        <div class="search mt-3">
+            <div class="col-md-6 mx-auto marqueebg">
+                <form action="{% url 'my_search' %}" method="get">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input placeholder="Search Obonte's Blog ..." name="my_search" type="search"  id="" class="form-control">
+                </div>
+                <marquee class="fw-bold fst-italic pt-1" behavior="" direction="">
+                    <span class="welcome"><h6 class="marquee">Welcome To The Platform Of Updates - News | Entertainment | Events | Fashion | Inspiration | Lifestyle & <code>So Much To Read</code><h6></span>
+                </marquee> 
+            </form>
+            </div>
+        </div>
+    </section>

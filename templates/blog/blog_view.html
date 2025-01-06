@@ -1,0 +1,124 @@
+{% extends "shared/base.html" %}
+{% load static %}
+{% load social_share %}
+{% block title %}
+    Blog Overview
+{% endblock title %}
+
+{% block content %}
+
+    <section id="overview">
+        <h4 class="display-5 text-center h4-view">OVERVIEW</h4>
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-7 mx-auto">
+                    {% if push %}
+                    <div class=" viewheaddies my-1">{{push.title |title}}</div>
+
+                    <div class="card">
+                        <img height="500" class="image-fluid"  src="{{ push.leadimg.url }}/" alt="{{push.title}}">
+                    </div>
+
+                    <div class="card-body mt-1">
+                        <p class="itinerary"><i class="bi bi-share"></i> 
+                        By : {{push.author.first_name}} {{push.author.last_name}} - {{push.date_posted}} | <i class="bi bi-comment"></i> <a class="overviewcomment px-2" href="#messageform">Comments</a></p> 
+                    </div>
+
+                    <p>
+                        {{push.body | safe}}
+                    </p>
+                    {% endif %}
+                    <br>
+                    <div class="mb-3">
+                        <h5 class=" ps-2 leavecomments"><i class="bi bi-share"></i> Share post </h5>
+                        <div class="d-flex gap-3 align-items-center">
+                            {% post_to_facebook object_or_url "<span class='rounded bg bg-primary px-2'>facebook</span>" %}
+                            {% post_to_linkedin object_or_url "<span class='rounded bg bg-info px-3'>linkedin</span>" %}
+                        </div>
+                    </div>
+                    <h5 class="commenttag ps-2"> <i class="bi bi-chat"> </i>Comments</h5>
+                    <p class="lead p-1">
+                        <span class="disclaimertag fw-bold">Disclaimer</span> : <span class="fst-italic comsize">Comments expressed here do not reflect the opinions of obonte.com or any employee thereof. </span>
+                    </p>
+
+                    {% if comments %}
+                    {% for comment in comments %}
+                    <div class="containerchat darker">
+
+                        <p class="my-auto bg-dange ps-2 commenttitledate"><b>{{comment.fullname}}</b> - <i>{{comment.date_posted}}</i></p>
+                        <p class="ps-2 commentbody">{{comment.body}}</p>  
+
+                    </div>    
+                    
+                    <div class="d-flex">
+                        <div>
+                            <button class="btn btn-danger btn-sm px-3 replycomment" type="button" data-bs-toggle="collapse" data-bs-target="#respo{{comment.id}}" aria-expanded="false" aria-controls="collapseExample">
+                                Reply
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="collapse" id="respo{{comment.id}}">
+                        <div class="card card-body">
+
+                            {% for comment in comment.reply_set.all %}
+                            <span class="fst-italic commentreply"> Reply : {{comment.date_posted}}</span>
+                            <p class="bg-dang text-white fst-italic ps-1 commentreply">
+                                 {{comment.body}} <br>
+                                <span class="text-w bg-w "></span>
+                            </p>
+                            {% endfor %}
+                        
+                            <form action="" method="post">
+                                {% csrf_token %}
+                                <div class="input-group">
+                                    {{rform}}
+                                    <button class="btn btn-dark btn-sm input-group-text" style="height:2.3rem;margin-top:.5rem;">Add</button>
+                                </div>
+                                <div class="d-grid my-2">
+                                    <!-- Hidden input for parent comment.id -->
+                                    <input type="hidden" name="comment_id" value="{{ comment.id }}">
+                                    <!-- <button class="btn btn-warning" type="submit" >Reply</button> -->
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                    <hr>
+                    {% endfor %}
+                    
+                    {% else %}
+                        <p class="lead bg-danger text-white ps-2 fs addcomment">
+                            No Comment Related To This Post - Add comment
+                        </p>
+                    {% endif %}
+
+                    <div class="container" id="messageform">
+                        <div class="row">
+                            <h5 class=" ps-2 leavecomments"> Leave Comments </h5>
+
+                            <form action="" method="post" class="">
+                                
+                                <div class="form-group">
+                                    {% csrf_token %}
+                                    {{form}}
+                                    {{form.media}}
+                                    <!-- <textarea name="" id="" cols="81" rows="2" class="mt-1" placeholder="Write Your Message"></textarea> -->
+                                </div>
+                                
+                                <div class="d-grid">
+                                    <button class="btn btn-danger postcomment" type="submit" >Post Comment</button>
+                                </div>
+                            </form>
+                         </div>
+                    </div>   
+                </div>  
+            </div>
+        </div>  
+    </section>
+
+    <br>
+
+
+{% endblock content %}

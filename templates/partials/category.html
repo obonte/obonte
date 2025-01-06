@@ -1,0 +1,15 @@
+<section class="cat">
+    <div class="container-fluid">
+        <div class="row justify-content-center gap-2">
+            {% if categorys %}
+            {% for category in categorys  %}
+            <div class="col-md-2">
+              <a class="text-white" href="{% url 'category' category.id %}">{{category.title}}</a>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p class="lead bg-danger py-2 rounded">Admin have not set any category yet</p>
+            {% endif %}
+          </div>
+      </div>
+</section>

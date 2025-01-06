@@ -1,0 +1,154 @@
+{% extends 'shared/base.html' %}
+{% load static %}
+
+{% block title %}
+    Welcome To Obonte's Blog
+{% endblock title %}
+
+
+{% block content %}
+
+{% include "partials/search.html" %}
+
+<section id="page">
+    {% include "partials/category.html" %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+                    {% if push %}
+                    {% for push in push %}
+                    <div class="col-md-6">
+                        <div class="pageanchor mx-2">
+                            <a class="pageanchor" href="{% url 'blog_view' push.id %}">{{push.title |title}}</a>
+                        </div>
+                        <div class="card my-2">
+                            {% if push %}
+                            <img class="px-2 pt-2" height="300" src="{{ push.leadimg.url }}/" alt="{{push.title}}">
+                            {% endif %}
+
+                            <div class="card-body">
+                                <p class="itinerary"><i class="bi bi-share-fill"></i>
+                                    {{push.author.first_name}} {{push.author.last_name}} - {{push.date_posted}}
+                                </p>
+                                <p>
+                                    {{ push.body | truncatechars:120 |safe }} <a class="readmore" href="{% url 'blog_view' push.id %}">Read More</a>
+                                </p>
+                            </div>
+                        </div>
+                        <hr class="container-fluid emptydiv">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-md-4 mt-2">
+                <div class="news"></div>
+                <div class="new mb-2 mt-0 text-center"> <i class="bi bi-search"></i> <i>Click</i> <a href="{% url 'contact' %}">Here</a> <i>For Updates & Enquiries</i></div>
+                <div class="news mb-1"></div>
+                <div class="card">
+                    <ol id="topposts">
+                        <h4>Top Posts</h4><br>
+                        {% for push in push %}
+                        <li>
+                            <a href="{% url 'blog_view' push.id %}">{{push.title |title}}</a>
+                        </li>
+                        <span class="span"><i class="bi bi-share-sm"></i>{{push.date_posted}}</span>
+                        <hr>
+                        {% endfor %}
+                    </ol>
+                </div>
+                <div class="container-fluid emptydiv"></div>
+                <br>
+                <div>
+                    <div class="container latestupdates">
+                        <h5 class="text-dark text-center display-6 fst-italic">Latest Updates</h5> 
+                        <div class="row updates">
+                            <div class="col-6 col-md-6">
+                                <div class="card border">
+                                    <a href="https://twitter.com/home" target="_blank" rel="noopener noreferer">
+                                       
+                                        <!-- <div class="card-img-overlay"> -->
+                                            <h3 class="text-center p-4">
+                                                <span class="badge text-primary"><i class="bi bi-twitter" style="font-size: 3rem;"></i></span>
+                                            </h3>
+                                        <!-- </div> -->
+                                    </a>
+                                </div> 
+                                <p class="lead text-center text-dark"><a href="" class="card-link text-decoration-none"></a></p> 
+                            </div>
+                            <div class="col-6 col-md-6">
+                                <div class="card">
+                                    <a href="https://www.facebook.com/profile.php?id=100091568721944" target="_blank" rel="noopener noreferer">
+
+                                        <!-- <div class="card-img-overlay"> -->
+                                            <h3 class="text-center p-4">
+                                                <span class="badge text-primary"><i class="bi bi-facebook" style="font-size: 3rem;"></i></span>
+                                            </h3>
+                                        <!-- </div> -->
+                                    </a>
+                                </div>  
+                                <p class="lead text-center text-dark"><a href="" class="card-link text-decoration-none"></a></p>
+                            </div>  
+                            <div class="col-6 col-md-6">
+                                <div class="card">
+                                    <a href="https://www.instagram.com/obonte_media/" target="_blank" rel="noopener noreferer">
+
+                                        <!-- <div class="card-img-overlay"> -->
+                                            <h3 class="text-center p-4">
+                                                <span class="badge text-danger"><i class="bi bi-instagram" style="font-size: 3rem;"></i></span>
+                                            </h3>
+                                        <!-- </div> -->
+                                    </a>
+                                </div>  
+                                <p class="lead text-center text-dark"><a href="" class="card-link text-decoration-none"></a></p>
+                            </div>  
+                            <div class="col-6 col-md-6">
+                                <div class="card">
+                                    <a href="http://www.linkedin.com" target="_blank" rel="noopener noreferer">
+
+                                        <!-- <div class="card-img-overlay"> -->
+                                            <h3 class="text-center p-4">
+                                                <span class="badge text-primary"><i class="bi bi-linkedin" style="font-size: 3rem;"></i></span>
+                                            </h3>
+                                        <!-- </div> -->
+                                    </a>
+                                </div> 
+                                <p class="lead text-center text-dark"><a href="" class="card-link text-decoration-none"></a></p> 
+                            </div>    
+                        </div>
+                        
+                        <div class="row mt-2 ticktok">
+                            <a href="https://www.tiktok.com/@obonte_tv">
+                                <div class="col-10 col-md-10 mx-auto border">
+                                    <img height="200" width="150" src="{% static 'images/ticktok.png' %}" alt="">
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+
+<div class="container me-5">
+    <div class="col-md-5 mx">
+        <ul class="pagination py-2">
+            {% if push.has_previous %}
+            <li class="page-item"><a class="page-link previous" href="{% url 'blog_page' %}?page={{push.previous_page_number}}"> <i class="bi bi-arrow-left-square-fill"></i> Previous </a></li>
+            {%else%}
+            <li class="page-item" disabled><a class="page-link previous"> <i class="bi bi-arrow-left-square-fill"></i> Previous </a></li>
+            {% endif %}
+            
+            {% if push.has_next %}
+            <li class="page-item"><a class="page-link next" href="{% url 'blog_page' %}?page={{push.next_page_number}}"> Next <i class="bi bi-arrow-right-square-fill"></i></a></li>
+            {%else%}
+            <li class="page-item"><a class="page-link next"> Next <i class="bi bi-arrow-right-square-fill"></i></a></li>
+            {% endif %}
+            
+        </ul>
+    </div>
+</div>
+
+{% endblock content %}

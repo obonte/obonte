@@ -1,0 +1,26 @@
+{% load static %}
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-sm navbar-dark sticky-top">
+    <div class="container-fluid">
+        <a class="text-decoration-none" href="{% url 'blog_page' %}">
+            <img height="20" src="{% static 'images/obontelogo.PNG' %}" alt=""><span></span>
+        </a>
+        <ul class="navbar-nav mx-auto">
+            <li class="nav-item mx-2 fst-italic fw-bold">
+                <a class="nav-link" href="#contact"><i class="bi bi-person-lines-fill"></i>Contact</a>
+            </li>
+            <li class="nav-item mx-2 fst-italic fw-bold">
+                <a class="nav-link" href="https://www.instagram.com/obonte_media/"><i class="bi bi-instagram"></i> Instagram</a>
+            </li>
+            <li class="nav-item mx-2 fst-italic fw-bold">
+                <a class="nav-link" href="https://www.facebook.com/profile.php?id=100091568721944"><i class="bi bi-facebook"></i> Facebook</a>
+            </li>
+            <li class="nav-item mx-2 fst-italic fw-bold">
+                <a class="nav-link" href="https://twitter.com/home"><i class="bi bi-twitter"></i>Twitter</a>
+            </li>
+            <li class="nav-item fst-italic fw-bold">
+                <a class="nav-link" href="https://www.youtube.com/channel/UCVECeQRmkTDtw7ppuwwDy9A"><i class="bi bi-youtube"></i>YouTube</a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,31 @@
+{% extends "shared/base.html" %}
+{% load static %}
+
+{% block title %}
+    Post Your Blog Here
+{% endblock title %}
+
+{% block content %}
+
+<section class="my-5 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 mx-auto">
+                <div class="card p-3">
+                    <form action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        {{form.as_p}}
+                        {{form.media}}
+
+                        <div class="d-grid my-3">
+                            <button class="btn btn btn-warning px-5" type="submit">Post</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
